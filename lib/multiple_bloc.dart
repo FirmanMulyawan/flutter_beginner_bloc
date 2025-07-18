@@ -79,23 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            // BlocBuilder<CounterBloc, CounterState>(
-            //     buildWhen: (previous, current) {
-            //   return current.count >= 2;
-            // },
-            //     // bloc: counterBloc,
-            //     builder: (context, state) {
-            //   return Text(
-            //     state.count.toString(),
-            //     style: Theme.of(context).textTheme.headlineMedium,
-            //   );
-            // }),
-            BlocConsumer<CounterBloc, CounterState>(listener: (context, state) {
-              if (state.count == 3) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Counter value is ${state.count}")));
-              }
-            }, builder: (context, state) {
+            BlocBuilder<CounterBloc, CounterState>(
+                buildWhen: (previous, current) {
+              return current.count >= 2;
+            },
+                // bloc: counterBloc,
+                builder: (context, state) {
               return Text(
                 state.count.toString(),
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -110,19 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 200,
                     height: 200,
                   ));
-            }),
-            BlocListener<CounterBloc, CounterState>(
-              listenWhen: (prev, current) {
-                return true;
-              },
-              listener: (context, state) {
-                if (state.count == 3) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Counter value is ${state.count}")));
-                }
-              },
-              child: Text("Bloc Listener"),
-            )
+            })
           ],
         ),
       ),
